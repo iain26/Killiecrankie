@@ -35,7 +35,7 @@ public class GyroscopeController : MonoBehaviour {
         if (gyroEnabled)
         {
             //Camera.main.transform.rotation = ConvertRotation(gyro.attitude);
-            Camera.main.transform.Rotate(-gyro.rotationRateUnbiased.x, -gyro.rotationRateUnbiased.y, 0);
+            //Camera.main.transform.Rotate(-gyro.rotationRateUnbiased.x, -gyro.rotationRateUnbiased.y, 0);
             //CameraParent.transform.Rotate(-gyro.rotationRateUnbiased.x, 0, 0);
             //Camera.main.transform.Rotate(0, -gyro.rotationRateUnbiased.y, 0);
         }
