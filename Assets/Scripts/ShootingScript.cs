@@ -24,8 +24,7 @@ public class ShootingScript : MonoBehaviour {
             Destroy(target);
             if(target.tag == "Dundee")
             {
-                SceneManager.LoadScene("ArScene");
-                score += 100;
+                score += 200;
             }
         }
     }
