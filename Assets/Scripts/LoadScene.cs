@@ -10,10 +10,9 @@ public class LoadScene : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        Debug.Log("Start");
         if (SceneManager.GetActiveScene().name == "WarpScene")
         {
-            StartCoroutine(LoadSceneDelay("Sniper"));
+            StartCoroutine(LoadSceneDelay(GameObject.Find("GameData").GetComponent<GameDataScript>().sceneName));
         }
 	}
 
@@ -27,18 +26,29 @@ public class LoadScene : MonoBehaviour {
         Menu.SetActive(false);
     }
 
+    public void Retry()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void Back()
+    {
+        Time.timeScale = 1;
+        GameObject.Find("GameData").GetComponent<GameDataScript>().ChangeSceneName("Ar");
+        SceneManager.LoadScene("WarpScene");
+    }
+
     public void LoadSniperScene()
     {
+        GameObject.Find("GameData").GetComponent<GameDataScript>().ChangeSceneName("Sniper");
         SceneManager.LoadScene("WarpScene");
     } 
 
     IEnumerator LoadSceneDelay(string scene)
     {
-        Debug.Log("Delaying");
-        yield return new WaitForSeconds(8f);
-        Debug.Log("Delayed");
-        SceneManager.LoadScene("SniperScene");
-        //yield return 0;
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene(scene + "Scene");
     }
 
     // Update is called once per frame

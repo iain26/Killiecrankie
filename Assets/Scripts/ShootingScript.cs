@@ -6,7 +6,11 @@ using UnityEngine.UI;
 
 public class ShootingScript : MonoBehaviour {
 
-    private GameObject target;
+    public GameObject target;
+
+    public GameObject EndPanel;
+
+    bool shotOnce = false;
 
     private int score;
     public Text scoreText;
@@ -18,14 +22,20 @@ public class ShootingScript : MonoBehaviour {
 
     public void Shoot()
     {
-        if(target != null)
+        if (!shotOnce)
         {
-            score += 100;
-            Destroy(target);
-            if(target.tag == "Dundee")
+            shotOnce = true;
+            if (target != null)
             {
-                score += 200;
+                score += 100;
+                if (target.tag == "Leader")
+                {
+                    score += 200;
+                }
             }
+            EndPanel.SetActive(true);
+            Time.timeScale = 0;
+            scoreText.text = "Score: " + score.ToString();
         }
     }
 
@@ -35,20 +45,20 @@ public class ShootingScript : MonoBehaviour {
         RaycastHit hit = new RaycastHit();
         if (Physics.Raycast(ray, out hit))
         {
-            if (hit.collider.gameObject.tag == "Jacobite" || hit.collider.gameObject.tag == "Dundee")
+            if (hit.collider.gameObject.tag == "Royalist" || hit.collider.gameObject.tag == "Leader")
             {
                 target = hit.collider.gameObject;
             }
-            else
-            {
-                target = null;
-            }
+        }
+        else
+        {
+
+            target = null;
         }
     }
 
     // Update is called once per frame
     void Update () {
         CheckRay();
-        scoreText.text = "Score: " + score.ToString();
 	}
 }

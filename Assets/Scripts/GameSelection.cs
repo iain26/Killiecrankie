@@ -30,7 +30,7 @@ public class GameSelection : MonoBehaviour {
             {
                 if (hit.collider.gameObject.tag == "LevelTransisition")
                 {
-                    //SceneManager.LoadScene(hit.collider.gameObject.name + "Scene");   
+                    GameObject.Find("GameData").GetComponent<GameDataScript>().ChangeSceneName(hit.collider.gameObject.name);
                     SceneManager.LoadScene("WarpScene");
                 }
             }

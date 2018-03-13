@@ -37,7 +37,7 @@ public class GyroscopeController : MonoBehaviour {
             //Camera.main.transform.rotation = ConvertRotation(gyro.attitude);
             Camera.main.transform.Rotate(-gyro.rotationRateUnbiased.x, -gyro.rotationRateUnbiased.y, 0);
             Quaternion rot = Camera.main.transform.rotation;
-            Camera.main.transform.rotation = Quaternion.Euler(rot.x, rot.y, 0);
+            //Camera.main.transform.rotation = Quaternion.Euler(rot.x, rot.y, 0);
             //CameraParent.transform.Rotate(-gyro.rotationRateUnbiased.x, 0, 0);
             //Camera.main.transform.Rotate(0, -gyro.rotationRateUnbiased.y, 0);
         }
