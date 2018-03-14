@@ -6,6 +6,8 @@ public class CameraFollow : MonoBehaviour {
 
     public GameObject soldier;
 
+    public GameObject groundPrefab;
+
 	// Use this for initialization
 	void Start () {
 		
