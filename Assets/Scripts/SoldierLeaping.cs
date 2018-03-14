@@ -1,13 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SoldierLeaping : MonoBehaviour {
 
     Rigidbody rb;
     Collider body;
-    
-    Vector3 jumpForce = new Vector3(0, 350, 0);
+
+    public CameraFollow cam;
+
+    public GameObject EndPanel;
+    public Text Result;
+
+    Vector3 jumpForce = new Vector3(0, 450, 0);
     bool jumped = false;
 
     bool crouch = false;
@@ -20,8 +26,11 @@ public class SoldierLeaping : MonoBehaviour {
 
     public void Jump()
     {
-        rb.AddForce(jumpForce);
-        jumped = true;
+        if (!jumped)
+        {
+            rb.AddForce(jumpForce);
+            jumped = true;
+        }
     }
 
     public void Crouch()
@@ -40,6 +49,44 @@ public class SoldierLeaping : MonoBehaviour {
         }
     }
 
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.collider.tag == "GroundBlock")
+        {
+            jumped = false;
+        }
+        if (collision.collider.tag == "EndBlock")
+        {
+            EndPanel.SetActive(true);
+            Result.text = "You Made the Leap";
+            Time.timeScale = 0;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "FallZone")
+        {
+            EndPanel.SetActive(true);
+            Result.text = "You fell to your Death";
+            Time.timeScale = 0;
+        }
+        if (other.tag == "Obstacle")
+        {
+            EndPanel.SetActive(true);
+            Result.text = "You tripped and were savagely beaten";
+            Time.timeScale = 0;
+        }
+        if (other.tag == "Projectile")
+        {
+            EndPanel.SetActive(true);
+            Result.text = "You were shot";
+            Time.timeScale = 0;
+        }
+    }
+
     private void FixedUpdate()
     {
         rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, 5);
@@ -48,9 +95,9 @@ public class SoldierLeaping : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-        if (jumped && rb.velocity.y < 0 && !crouch)
+        if (transform.localPosition.y > 2.5f)
         {
-            rb.AddForce(0, -5, 0);
+            rb.AddForce(0, -10, 0);
         }
     }
 }

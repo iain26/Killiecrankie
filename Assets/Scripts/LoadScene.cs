@@ -12,6 +12,7 @@ public class LoadScene : MonoBehaviour {
     {
         if (SceneManager.GetActiveScene().name == "WarpScene")
         {
+            Screen.orientation = ScreenOrientation.Portrait;
             StartCoroutine(LoadSceneDelay(GameObject.Find("GameData").GetComponent<GameDataScript>().sceneName));
         }
 	}
@@ -48,6 +49,10 @@ public class LoadScene : MonoBehaviour {
     IEnumerator LoadSceneDelay(string scene)
     {
         yield return new WaitForSeconds(3f);
+        if (scene == "Leap")
+        {
+            Screen.orientation = ScreenOrientation.LandscapeRight;
+        }
         SceneManager.LoadScene(scene + "Scene");
     }
 
