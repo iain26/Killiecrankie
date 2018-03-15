@@ -6,8 +6,11 @@ public class GameDataScript : MonoBehaviour {
 
     public string sceneName;
 
-	// Use this for initialization
-	void Start () {
+    public bool SniperGame = false;
+    public bool LeapGame = false;
+
+    // Use this for initialization
+    void Start () {
         DontDestroyOnLoad(gameObject);
         GameObject[] arrayCheck = GameObject.FindGameObjectsWithTag("GameData");
         if(arrayCheck.Length > 1)

@@ -5,8 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class GameSelection : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    public GameObject sniperGameButton;
+    public GameObject leapGameButton;
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
@@ -31,9 +34,21 @@ public class GameSelection : MonoBehaviour {
                 if (hit.collider.gameObject.tag == "LevelTransisition")
                 {
                     GameObject.Find("GameData").GetComponent<GameDataScript>().ChangeSceneName(hit.collider.gameObject.name);
+                    if(hit.collider.gameObject.name == "Sniper")
+                    {
+                        GameObject.Find("GameData").GetComponent<GameDataScript>().SniperGame = true;
+                    }
+                    if (hit.collider.gameObject.name == "Leap")
+                    {
+                        GameObject.Find("GameData").GetComponent<GameDataScript>().LeapGame = true;
+                    }
                     SceneManager.LoadScene("WarpScene");
                 }
             }
         }
-	}
+
+
+        sniperGameButton.SetActive(GameObject.Find("GameData").GetComponent<GameDataScript>().SniperGame);
+        leapGameButton.SetActive(GameObject.Find("GameData").GetComponent<GameDataScript>().LeapGame);
+    }
 }

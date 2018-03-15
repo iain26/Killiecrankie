@@ -28,8 +28,13 @@ public class SoldierLeaping : MonoBehaviour {
     {
         if (!jumped)
         {
-            rb.AddForce(jumpForce);
             jumped = true;
+            if (crouch)
+            {
+                jumpForce *= 0.5f;
+            }
+            rb.AddForce(jumpForce);
+            jumpForce = new Vector3(0, 450, 0);
         }
     }
 
@@ -39,13 +44,13 @@ public class SoldierLeaping : MonoBehaviour {
         {
             crouch = true;
             transform.localScale = new Vector3(1, 0.5f, 1);
-            transform.position = new Vector3(transform.position.x, 1.01f, transform.position.z);
+            transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
         }
         else
         {
             crouch = false;
             transform.localScale = new Vector3(1, 1, 1);
-            transform.position = new Vector3(transform.position.x, 1.5f, transform.position.z);
+            transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
         }
     }
 

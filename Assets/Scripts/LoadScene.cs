@@ -44,7 +44,13 @@ public class LoadScene : MonoBehaviour {
     {
         GameObject.Find("GameData").GetComponent<GameDataScript>().ChangeSceneName("Sniper");
         SceneManager.LoadScene("WarpScene");
-    } 
+    }
+
+    public void LoadLeapScene()
+    {
+        GameObject.Find("GameData").GetComponent<GameDataScript>().ChangeSceneName("Leap");
+        SceneManager.LoadScene("WarpScene");
+    }
 
     IEnumerator LoadSceneDelay(string scene)
     {

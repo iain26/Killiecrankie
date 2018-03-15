@@ -10,8 +10,8 @@ public class CameraFollow : MonoBehaviour {
     public GameObject groundPrefab;
     int blockCount = 14;
 
-    int treeCount = 1;
-    public GameObject treePrefab;
+    bool treePlaced = false;
+    public GameObject[] obstaclePrefab;
 
     int bulletCount = 1;
     public Transform projectilePos;
@@ -34,28 +34,35 @@ public class CameraFollow : MonoBehaviour {
             groundClone.transform.localPosition = new Vector3(0, 0, blockCount);
             groundClone.name = blockCount.ToString();
 
-            if (treeCount > 0)
+            if (!treePlaced)
             {
-                if (Random.Range(0, 2) < 1)
+                if (Random.Range(0, 5) < 1)
                 {
-                    treeCount--;
-                    StartCoroutine(IncrementTreeCount( 2));
-                    GameObject obstacle = GameObject.Instantiate(treePrefab);
+                    treePlaced = true;
+                    StartCoroutine(IncrementTreeCount(2f));
+                    GameObject obstacle = GameObject.Instantiate(obstaclePrefab[Random.Range(0, obstaclePrefab.Length)]);
                     obstacle.transform.SetParent(groundClone.transform);
                     obstacle.transform.localPosition = new Vector3(0, 0.837f, 0);
+
+                    if (Random.Range(0, 3) < 1)
+                    {
+                        GameObject obstacle2 = GameObject.Instantiate(obstaclePrefab[Random.Range(0, obstaclePrefab.Length)]);
+                        obstacle2.transform.SetParent(groundClone.transform);
+                        obstacle2.transform.localPosition = new Vector3(0, 0.837f, 1);
+                    }
                 }
             }
         }
     }
 
-    IEnumerator IncrementTreeCount( int time)
+    IEnumerator IncrementTreeCount(float time)
     {
         yield return new WaitForSeconds(time);
-        treeCount++;
+        treePlaced = false;
         yield return 0;
     }
 
-    IEnumerator IncrementProjectileCount(int time)
+    IEnumerator IncrementProjectileCount(float time)
     {
         yield return new WaitForSeconds(time);
         bulletCount++;
@@ -73,15 +80,19 @@ public class CameraFollow : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         transform.position = new Vector3(transform.position.x, transform.position.y, soldier.transform.position.z);
-        if(bulletCount == 1)
+        if (bulletCount == 1)
         {
-            if (Random.Range(0, 5) < 1)
+            if (Random.Range(0, 9) < 1)
             {
                 bulletCount--;
-                StartCoroutine(IncrementProjectileCount( 3));
+                StartCoroutine(IncrementProjectileCount(6));
                 GameObject projectileClone = GameObject.Instantiate(projectilePrefab);
                 projectileClone.transform.localPosition = projectilePos.position;
             }
         }
-	}
+        else
+        {
+            //bulletCount = 1;
+        }
+    }
 }
