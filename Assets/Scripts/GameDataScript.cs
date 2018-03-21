@@ -8,6 +8,7 @@ public class GameDataScript : MonoBehaviour {
 
     public bool SniperGame = false;
     public bool LeapGame = false;
+    public bool ChargeGame = false;
 
     // Use this for initialization
     void Start () {

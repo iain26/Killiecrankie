@@ -52,6 +52,11 @@ public class LoadScene : MonoBehaviour {
         SceneManager.LoadScene("WarpScene");
     }
 
+    public void LoadARScene()
+    {
+        SceneManager.LoadScene("ArScene");
+    }
+
     IEnumerator LoadSceneDelay(string scene)
     {
         yield return new WaitForSeconds(3f);

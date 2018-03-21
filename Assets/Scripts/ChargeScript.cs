@@ -5,24 +5,26 @@ using UnityEngine.UI;
 
 public class ChargeScript : MonoBehaviour {
 
-    public GameObject EndPanel;
-    public Text scoreText;
+    GameObject EndPanel;
+    Text scoreText;
 
-    private int score;
+    ScoreScript scoreS;
+
 
     // Use this for initialization
     void Start () {
-		
+        scoreS = GameObject.Find("GameMgr").GetComponent<ScoreScript>();
+        EndPanel = GameObject.Find("Canvas").transform.GetChild(0).gameObject;
+        scoreText = EndPanel.transform.GetChild(0).gameObject.GetComponent<Text>();
 	}
 
     private void OnCollisionEnter(Collision collision)
     {
-        print("Col");
         if(collision.collider.tag == "Royalist")
         {
             EndPanel.SetActive(true);
-            Time.timeScale = 0;
-            scoreText.text = "Score: " + score.ToString();
+            //Time.timeScale = 0;
+            scoreText.text = "Score: " + scoreS.score.ToString();
         }
     }
 

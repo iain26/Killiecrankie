@@ -42,6 +42,10 @@ public class GameSelection : MonoBehaviour {
                     {
                         GameObject.Find("GameData").GetComponent<GameDataScript>().LeapGame = true;
                     }
+                    if (hit.collider.gameObject.name == "Charge")
+                    {
+                        GameObject.Find("GameData").GetComponent<GameDataScript>().ChargeGame = true;
+                    }
                     SceneManager.LoadScene("WarpScene");
                 }
             }
