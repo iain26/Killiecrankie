@@ -52,6 +52,12 @@ public class LoadScene : MonoBehaviour {
         SceneManager.LoadScene("WarpScene");
     }
 
+    public void LoadChargeScene()
+    {
+        GameObject.Find("GameData").GetComponent<GameDataScript>().ChangeSceneName("Charge");
+        SceneManager.LoadScene("WarpScene");
+    }
+
     public void LoadARScene()
     {
         SceneManager.LoadScene("ArScene");
@@ -60,7 +66,7 @@ public class LoadScene : MonoBehaviour {
     IEnumerator LoadSceneDelay(string scene)
     {
         yield return new WaitForSeconds(3f);
-        if (scene == "Leap")
+        if (scene == "Leap" || scene == "Charge")
         {
             Screen.orientation = ScreenOrientation.LandscapeRight;
         }

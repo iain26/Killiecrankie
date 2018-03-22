@@ -8,11 +8,14 @@ public class FireScript : MonoBehaviour {
 
     bool firing = false;
 
+    Touch phoneTouch;
+
     public Material ReadyM;
     public Material ReloadM;
 
     public ScoreScript scoreS;
 
+    List<Vector2> TouchPositions = new List<Vector2>();
 
     // Use this for initialization
     void Start () {
@@ -32,14 +35,16 @@ public class FireScript : MonoBehaviour {
         reloading = false;
         yield return 0;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    void Rays()
+    {
         if (Input.GetMouseButtonDown(0) || Input.touchCount > 0)
         {
+            phoneTouch = Input.GetTouch(0);
             RaycastHit hit;
             Ray ray;
             // for debugging on PC
+
             if (Application.platform == RuntimePlatform.Android)
             {
                 ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
@@ -53,21 +58,24 @@ public class FireScript : MonoBehaviour {
             {
                 if (hit.collider.gameObject == this.gameObject)
                 {
-                    if(!reloading)
-                    firing = true;
+                    if (!reloading)
+                        firing = true;
                 }
             }
         }
-        if ((Input.GetMouseButtonUp(0) && firing)|| (Input.touchCount > 0 && firing))
+
+
+        if ((Input.GetMouseButtonUp(0) && firing && Application.platform != RuntimePlatform.Android) || (Input.touchCount == 0 && firing && Application.platform == RuntimePlatform.Android))
         {
             GetComponent<Renderer>().material = ReloadM;
             firing = false;
             RaycastHit hit;
             Ray ray;
             // for debugging on PC
+
             if (Application.platform == RuntimePlatform.Android)
             {
-                ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+                ray = Camera.main.ScreenPointToRay(phoneTouch.position);
             }
             else
             {
@@ -81,10 +89,22 @@ public class FireScript : MonoBehaviour {
                     if (!reloading)
                     {
                         reloading = true;
-                        StartCoroutine(Reload());
                         Fire(hit.collider.gameObject);
                     }
                 }
+            }
+            StartCoroutine(Reload());
+        }
+    }
+	
+	// Update is called once per frame
+	void Update () {
+        Rays();
+        if (firing)
+        {
+            if (Application.platform == RuntimePlatform.Android)
+            {
+                TouchPositions.Add(Input.GetTouch(0).position);
             }
         }
     }

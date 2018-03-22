@@ -7,6 +7,7 @@ public class GameSelection : MonoBehaviour {
 
     public GameObject sniperGameButton;
     public GameObject leapGameButton;
+    public GameObject chargeGameButton;
 
     // Use this for initialization
     void Start () {
@@ -54,5 +55,6 @@ public class GameSelection : MonoBehaviour {
 
         sniperGameButton.SetActive(GameObject.Find("GameData").GetComponent<GameDataScript>().SniperGame);
         leapGameButton.SetActive(GameObject.Find("GameData").GetComponent<GameDataScript>().LeapGame);
+        chargeGameButton.SetActive(GameObject.Find("GameData").GetComponent<GameDataScript>().ChargeGame);
     }
 }
