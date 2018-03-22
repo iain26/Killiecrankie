@@ -16,6 +16,8 @@ public class SoldierLeaping : MonoBehaviour {
     Vector3 jumpForce = new Vector3(0, 450, 0);
     bool jumped = false;
 
+    bool waited = true;
+
     bool crouch = false;
 
     // Use this for initialization
@@ -24,10 +26,18 @@ public class SoldierLeaping : MonoBehaviour {
         body = GetComponent<Collider>();
 	}
 
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(0.5f);
+        waited = true;
+    }
+
     public void Jump()
     {
-        if (!jumped)
+        if (!jumped && waited)
         {
+            waited = false;
+            StartCoroutine(Wait());
             jumped = true;
             if (crouch)
             {

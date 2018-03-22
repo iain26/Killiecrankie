@@ -52,6 +52,16 @@ public class LoadScene : MonoBehaviour {
         SceneManager.LoadScene("WarpScene");
     }
 
+    public void LoadMap()
+    {
+        SceneManager.LoadScene("UnityWorldSpace");
+    }
+
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
     public void LoadChargeScene()
     {
         GameObject.Find("GameData").GetComponent<GameDataScript>().ChangeSceneName("Charge");
