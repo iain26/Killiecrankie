@@ -51,11 +51,41 @@ public class LoadScene : MonoBehaviour {
         GameObject.Find("GameData").GetComponent<GameDataScript>().ChangeSceneName("Leap");
         SceneManager.LoadScene("WarpScene");
     }
+		
 
-    public void LoadMap()
-    {
-        SceneManager.LoadScene("UnityWorldSpace");
-    }
+	//FILTHY DESIGNER CODE BEWARE
+
+	public void LoadMapScene()
+	{
+		SceneManager.LoadScene ("MapScene");
+	}
+
+	public void LoadIntro()
+	{
+		SceneManager.LoadScene ("IntroScene");
+	}
+
+	public void LoadGames()
+	{
+		SceneManager.LoadScene ("GamesScene");
+	}
+
+	public void LoadGallery()
+	{
+		SceneManager.LoadScene ("GalleryScene");
+	}
+
+	public void LoadViewer()
+	{
+		SceneManager.LoadScene ("ViewerScene");
+	}
+
+	public void Quit()
+	{
+		Application.Quit(); 
+	}
+
+	//END DESIGNER CODE
 
     public void LoadMainMenu()
     {
@@ -85,6 +115,7 @@ public class LoadScene : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-		
+
+
 	}
 }
