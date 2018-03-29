@@ -22,8 +22,7 @@ public class ChargeScript : MonoBehaviour {
     {
         if(collision.collider.tag == "Royalist")
         {
-            EndPanel.SetActive(true);
-            //Time.timeScale = 0;
+            Destroy(collision.collider.gameObject);
             scoreText.text = "Score: " + scoreS.score.ToString();
         }
     }
@@ -33,5 +32,10 @@ public class ChargeScript : MonoBehaviour {
         float increment = Time.deltaTime;
         Vector3 lastPos = transform.localPosition;
         transform.localPosition = new Vector3(lastPos.x - increment, lastPos.y, lastPos.z);
+        if (GameObject.FindGameObjectWithTag("Royalist") == null)
+        {
+            EndPanel.SetActive(true);
+            Time.timeScale = 0;
+        }
     }
 }

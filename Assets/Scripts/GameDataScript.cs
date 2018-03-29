@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameDataScript : MonoBehaviour {
 
@@ -9,6 +10,12 @@ public class GameDataScript : MonoBehaviour {
     public bool SniperGame = false;
     public bool LeapGame = false;
     public bool ChargeGame = false;
+    public bool Royalist = false;
+    public bool ThinJacobite = false;
+    public bool FatJacobite = false;
+
+    public string objectToDisplay;
+    public string character;
 
     // Use this for initialization
     void Start () {
@@ -24,9 +31,17 @@ public class GameDataScript : MonoBehaviour {
     {
         sceneName = scene;
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (SceneManager.GetActiveScene().name == "ChargeScene" || SceneManager.GetActiveScene().name == "LeapScene")
+        {
+            Screen.orientation = ScreenOrientation.LandscapeRight;
+        }
+        else
+        {
+            Screen.orientation = ScreenOrientation.Portrait;
+        }
+    }
 }

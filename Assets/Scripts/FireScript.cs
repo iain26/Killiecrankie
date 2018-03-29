@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FireScript : MonoBehaviour {
+    
+    //public LineRenderer line;
 
     bool reloading = false;
 
@@ -59,6 +61,8 @@ public class FireScript : MonoBehaviour {
                 if (hit.collider.gameObject == this.gameObject)
                 {
                     if (!reloading)
+                        //line.enabled = true;
+                        //line.SetPosition(0, gameObject.transform.position);
                         firing = true;
                 }
             }
@@ -84,6 +88,7 @@ public class FireScript : MonoBehaviour {
 
             if (Physics.Raycast(ray, out hit))
             {
+                //line.SetPosition(1, hit.point);
                 if (hit.collider.gameObject.tag == "Jacobite")
                 {
                     if (!reloading)
@@ -106,6 +111,10 @@ public class FireScript : MonoBehaviour {
             {
                 TouchPositions.Add(Input.GetTouch(0).position);
             }
+        }
+        else
+        {
+            //line.enabled = false;
         }
     }
 }

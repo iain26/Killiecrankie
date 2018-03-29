@@ -37,19 +37,19 @@ public class LoadScene : MonoBehaviour {
     {
         Time.timeScale = 1;
         GameObject.Find("GameData").GetComponent<GameDataScript>().ChangeSceneName("Ar");
-        SceneManager.LoadScene("WarpScene");
+        SceneManager.LoadScene("ArScene");
     }
 
     public void LoadSniperScene()
     {
         GameObject.Find("GameData").GetComponent<GameDataScript>().ChangeSceneName("Sniper");
-        SceneManager.LoadScene("WarpScene");
+        SceneManager.LoadScene("SniperScene");
     }
 
     public void LoadLeapScene()
     {
         GameObject.Find("GameData").GetComponent<GameDataScript>().ChangeSceneName("Leap");
-        SceneManager.LoadScene("WarpScene");
+        SceneManager.LoadScene("LeapScene");
     }
 		
 
@@ -95,7 +95,7 @@ public class LoadScene : MonoBehaviour {
     public void LoadChargeScene()
     {
         GameObject.Find("GameData").GetComponent<GameDataScript>().ChangeSceneName("Charge");
-        SceneManager.LoadScene("WarpScene");
+        SceneManager.LoadScene("ChargeScene");
     }
 
     public void LoadARScene()
@@ -110,7 +110,26 @@ public class LoadScene : MonoBehaviour {
         {
             Screen.orientation = ScreenOrientation.LandscapeRight;
         }
+        Time.timeScale = 0;
         SceneManager.LoadScene(scene + "Scene");
+    }
+
+    public void LoadRoyalist()
+    {
+        GameObject.Find("GameData").GetComponent<GameDataScript>().character = "Royalist";
+        SceneManager.LoadScene("ViewerScene");
+    }
+
+    public void LoadThinJacobite()
+    {
+        GameObject.Find("GameData").GetComponent<GameDataScript>().character = "TJacobite";
+        SceneManager.LoadScene("ViewerScene");
+    }
+
+    public void LoadFatJacobite()
+    {
+        GameObject.Find("GameData").GetComponent<GameDataScript>().character = "FJacobite";
+        SceneManager.LoadScene("ViewerScene");
     }
 
     // Update is called once per frame

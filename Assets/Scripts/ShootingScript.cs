@@ -36,6 +36,10 @@ public class ShootingScript : MonoBehaviour {
             EndPanel.SetActive(true);
             Time.timeScale = 0;
             scoreText.text = "Score: " + score.ToString();
+            if (score > 100)
+            {
+                scoreText.text = "High Value Target Score: " + score.ToString();
+            }
         }
     }
 
