@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FireScript : MonoBehaviour {
-    
-    //public LineRenderer line;
+
+    public LineRenderer line;
+    Vector3 lineEndPos;
+    public GameObject bang;
 
     bool reloading = false;
 
@@ -21,7 +23,6 @@ public class FireScript : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-		
 	}
 
     void Fire(GameObject target)
@@ -42,7 +43,10 @@ public class FireScript : MonoBehaviour {
     {
         if (Input.GetMouseButtonDown(0) || Input.touchCount > 0)
         {
-            phoneTouch = Input.GetTouch(0);
+            if (Application.platform == RuntimePlatform.Android)
+            {
+                phoneTouch = Input.GetTouch(0);
+            }
             RaycastHit hit;
             Ray ray;
             // for debugging on PC
@@ -61,8 +65,8 @@ public class FireScript : MonoBehaviour {
                 if (hit.collider.gameObject == this.gameObject)
                 {
                     if (!reloading)
-                        //line.enabled = true;
-                        //line.SetPosition(0, gameObject.transform.position);
+                        line.enabled = true;
+                        line.SetPosition(0, gameObject.transform.position);
                         firing = true;
                 }
             }
@@ -88,7 +92,6 @@ public class FireScript : MonoBehaviour {
 
             if (Physics.Raycast(ray, out hit))
             {
-                //line.SetPosition(1, hit.point);
                 if (hit.collider.gameObject.tag == "Jacobite")
                 {
                     if (!reloading)
@@ -98,6 +101,9 @@ public class FireScript : MonoBehaviour {
                     }
                 }
             }
+            line.enabled = false;
+            GameObject gunMuzzle = Instantiate(bang);
+            gunMuzzle.transform.position = transform.position;
             StartCoroutine(Reload());
         }
     }
@@ -105,16 +111,34 @@ public class FireScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Rays();
+        if(line.enabled == true)
+        {
+            line.SetPosition(1, lineEndPos);
+            RaycastHit hit;
+            Ray ray;
+            // for debugging on PC
+
+            if (Application.platform == RuntimePlatform.Android)
+            {
+                ray = Camera.main.ScreenPointToRay(phoneTouch.position);
+            }
+            else
+            {
+                ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            }
+            if (Physics.Raycast(ray, out hit))
+            {
+                lineEndPos = hit.point;
+            }
+            lineEndPos.y = 0.25f;
+            line.SetPosition(1, lineEndPos);
+        }
         if (firing)
         {
             if (Application.platform == RuntimePlatform.Android)
             {
                 TouchPositions.Add(Input.GetTouch(0).position);
             }
-        }
-        else
-        {
-            //line.enabled = false;
         }
     }
 }

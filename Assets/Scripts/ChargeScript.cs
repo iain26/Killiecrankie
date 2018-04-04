@@ -10,6 +10,8 @@ public class ChargeScript : MonoBehaviour {
 
     ScoreScript scoreS;
 
+    ChargeSceneScript cSS;
+
 
     // Use this for initialization
     void Start () {
