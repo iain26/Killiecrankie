@@ -12,7 +12,10 @@ public class ChargeSceneScript : MonoBehaviour {
     public GameObject r3;
     public GameObject r4;
 
-    List<int> offLimits = new List<int>();
+    bool spawn1 = true;
+    bool spawn2 = true;
+    bool spawn3 = true;
+    bool spawn4 = true;
 
     float spawnRate = 3;
     bool waited = true;
@@ -32,12 +35,10 @@ public class ChargeSceneScript : MonoBehaviour {
 
     void Spawn()
     {
-        print(JacobiteSpawn.Count);
         GameObject newEnemy = GameObject.Instantiate(JacobiteSquad);
         newEnemy.name = "JacobiteSquad";
         int rand = Random.Range(0, JacobiteSpawn.Count);
-        print(offLimits[rand]);
-        while(offLimits[rand] == 1)
+        while(rand == 0 && !spawn1 || rand == 1 && !spawn2 || rand == 2 && !spawn3 || rand == 3 && !spawn4 )
         {
             rand = Random.Range(0, JacobiteSpawn.Count);
         }
@@ -54,19 +55,19 @@ public class ChargeSceneScript : MonoBehaviour {
 	void Update () {
         if(r1 == null)
         {
-            offLimits[0] = 1;
+            spawn1 = false;
         }
         if (r2 == null)
         {
-            offLimits[1] = 1;
+            spawn2 = false;
         }
         if (r3 == null)
         {
-            offLimits[2] = 1;
+            spawn3 = false;
         }
         if (r4 == null)
         {
-            offLimits[3] = 1;
+            spawn4 = false;
         }
         if (waited)
         {

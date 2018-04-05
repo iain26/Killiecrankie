@@ -35,13 +35,14 @@ public class FireScript : MonoBehaviour {
     {
         yield return new WaitForSeconds(4);
         GetComponent<Renderer>().material = ReadyM;
+        transform.localPosition = new Vector3(transform.localPosition.x, 0.25f, transform.localPosition.z);
         reloading = false;
         yield return 0;
     }
 
     void Rays()
     {
-        if (Input.GetMouseButtonDown(0) || Input.touchCount > 0)
+        if (Input.GetMouseButtonDown(0) && !reloading|| Input.touchCount > 0 && !reloading)
         {
             if (Application.platform == RuntimePlatform.Android)
             {
@@ -75,7 +76,12 @@ public class FireScript : MonoBehaviour {
 
         if ((Input.GetMouseButtonUp(0) && firing && Application.platform != RuntimePlatform.Android) || (Input.touchCount == 0 && firing && Application.platform == RuntimePlatform.Android))
         {
+            for(int i = 0; i < transform.childCount; i++)
+            {
+                transform.GetChild(i).gameObject.GetComponent<Animator>().Play("Fire");
+            }
             GetComponent<Renderer>().material = ReloadM;
+            transform.localPosition = new Vector3(transform.localPosition.x, 0.05f, transform.localPosition.z);
             firing = false;
             RaycastHit hit;
             Ray ray;
