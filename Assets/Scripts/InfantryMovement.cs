@@ -14,5 +14,6 @@ public class InfantryMovement : MonoBehaviour {
         float increment = Time.deltaTime;
         Vector3 lastPos = transform.localPosition;
         transform.localPosition = new Vector3(lastPos.x - increment, lastPos.y, lastPos.z);
+        Debug.Log("its brittany bitch");
 	}
 }

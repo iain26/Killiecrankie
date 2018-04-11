@@ -15,8 +15,6 @@ public class GalleryScene : MonoBehaviour
     {
         gDS = GameObject.FindGameObjectWithTag("GameData").GetComponent<GameDataScript>();
         Royalist.SetActive(gDS.Royalist);
-        ThinJacobite.SetActive(gDS.ThinJacobite);
-        FatJacobite.SetActive(gDS.FatJacobite);
     }
 
     public void DeveloperButton()

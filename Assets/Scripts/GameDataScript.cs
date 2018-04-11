@@ -14,8 +14,8 @@ public class GameDataScript : MonoBehaviour {
     public bool LeapGame = false;
     public bool ChargeGame = false;
     public bool Royalist = false;
-    public bool ThinJacobite = false;
-    public bool FatJacobite = false;
+    public bool Musket = false;
+    public bool RandomModel = false;
 
     public string objectToDisplay;
     public string character;
@@ -41,7 +41,7 @@ public class GameDataScript : MonoBehaviour {
         {
             fileOfGames = new FileInfo(Application.persistentDataPath + "\\" + fileName +".txt");
         }
-        CheckUnlockedGames();
+        CheckUnlocked();
     }
 
     void SaveToFile(string gameCollected)
@@ -63,7 +63,7 @@ public class GameDataScript : MonoBehaviour {
         return data;
     }
 
-    void CheckUnlockedGames()
+    void CheckUnlocked()
     {
         if (LoadFile().Contains("Leap_Game"))
         {
@@ -75,6 +75,22 @@ public class GameDataScript : MonoBehaviour {
             ChargeGame = true;
             gamesCollected = gamesCollected + "Charge_Game ||";
         }
+        if (LoadFile().Contains("Royalist_Model"))
+        {
+            Royalist = true;
+            gamesCollected = gamesCollected + "Royalist_Model ||";
+        }
+    }
+
+    public void ClearGames()
+    {
+        File.Delete(Application.persistentDataPath + "\\" + fileName + ".txt");
+        LeapGame = false;
+        ChargeGame = false;
+        Royalist = false;
+        Musket = false;
+        RandomModel = false;
+        fileOfGames = new FileInfo(Application.persistentDataPath + "\\" + fileName + ".txt");
     }
 
     public void SetBool(string trackName)
@@ -88,7 +104,7 @@ public class GameDataScript : MonoBehaviour {
                     notificationText.text = "You have unlocked the Leap Game in Games Menu";
                     StartCoroutine(Wait());
                     SaveToFile(trackName + "|| ");
-                    CheckUnlockedGames();
+                    CheckUnlocked();
                 }
                 break;
             case "Charge_Game":
@@ -98,7 +114,17 @@ public class GameDataScript : MonoBehaviour {
                     notificationText.text = "You have unlocked the Charge Game in Games Menu";
                     StartCoroutine(Wait());
                     SaveToFile(trackName + " || ");
-                    CheckUnlockedGames();
+                    CheckUnlocked();
+                }
+                break;
+            case "Royalist_Model":
+                if (!Royalist)
+                {
+                    notification.SetActive(true);
+                    notificationText.text = "You have unlocked the Royalist in Gallery Menu";
+                    StartCoroutine(Wait());
+                    SaveToFile(trackName + " || ");
+                    CheckUnlocked();
                 }
                 break;
         }

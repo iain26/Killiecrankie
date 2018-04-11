@@ -53,18 +53,18 @@ public class GameSelection : MonoBehaviour {
                         GameObject.Find("GameData").GetComponent<GameDataScript>().Royalist = true;
                         SceneManager.LoadScene("ViewerScene");
                     }
-                    if (hit.collider.gameObject.name == "TJacobite")
-                    {
-                        GameObject.Find("GameData").GetComponent<GameDataScript>().character = "TJacobite";
-                        GameObject.Find("GameData").GetComponent<GameDataScript>().ThinJacobite = true;
-                        SceneManager.LoadScene("ViewerScene");
-                    }
-                    if (hit.collider.gameObject.name == "FJacoBite")
-                    {
-                        GameObject.Find("GameData").GetComponent<GameDataScript>().character = "FJacobite";
-                        GameObject.Find("GameData").GetComponent<GameDataScript>().FatJacobite = true;
-                        SceneManager.LoadScene("ViewerScene");
-                    }
+                    //if (hit.collider.gameObject.name == "TJacobite")
+                    //{
+                    //    GameObject.Find("GameData").GetComponent<GameDataScript>().character = "TJacobite";
+                    //    GameObject.Find("GameData").GetComponent<GameDataScript>().ThinJacobite = true;
+                    //    SceneManager.LoadScene("ViewerScene");
+                    //}
+                    //if (hit.collider.gameObject.name == "FJacoBite")
+                    //{
+                    //    GameObject.Find("GameData").GetComponent<GameDataScript>().character = "FJacobite";
+                    //    GameObject.Find("GameData").GetComponent<GameDataScript>().FatJacobite = true;
+                    //    SceneManager.LoadScene("ViewerScene");
+                    //}
                     SceneManager.LoadScene("WarpScene");
                 }
             }
