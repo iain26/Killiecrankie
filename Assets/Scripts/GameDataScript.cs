@@ -24,11 +24,10 @@ public class GameDataScript : MonoBehaviour {
     private Text notificationText;
 
     FileInfo fileOfGames;
+    string fileName = "Collected_Games";
 
     public string data;
     string gamesCollected;
-
-    public Text dataText;
 
     // Use this for initialization
     void Start () {
@@ -38,16 +37,16 @@ public class GameDataScript : MonoBehaviour {
         {
             Destroy(gameObject);
         }
-        //if (new FileInfo(Application.persistentDataPath + "\\" + "gamesCollected.txt").Exists == false)
+        //if (new FileInfo(Application.persistentDataPath + "\\" + fileName +".txt").Exists == false)
         {
-            fileOfGames = new FileInfo(Application.persistentDataPath + "\\" + "gamesCollected.txt");
+            fileOfGames = new FileInfo(Application.persistentDataPath + "\\" + fileName +".txt");
         }
         CheckUnlockedGames();
     }
 
     void SaveToFile(string gameCollected)
     {
-        gamesCollected = gamesCollected + gamesCollected;
+        gamesCollected = gamesCollected + gameCollected;
         StreamWriter write;
         fileOfGames.Delete();
         write = fileOfGames.CreateText();
@@ -57,7 +56,7 @@ public class GameDataScript : MonoBehaviour {
 
     string LoadFile()
     {
-        StreamReader read = File.OpenText(Application.persistentDataPath + "\\" + "gamesCollected.txt");
+        StreamReader read = File.OpenText(Application.persistentDataPath + "\\" + fileName + ".txt");
         string loadedData = read.ReadToEnd();
         read.Close();
         data = loadedData;
@@ -69,10 +68,12 @@ public class GameDataScript : MonoBehaviour {
         if (LoadFile().Contains("Leap_Game"))
         {
             LeapGame = true;
+            gamesCollected = gamesCollected + "Leap_Game ||";
         }
-        if (LoadFile().Contains("QR"))
+        if (LoadFile().Contains("Charge_Game"))
         {
             ChargeGame = true;
+            gamesCollected = gamesCollected + "Charge_Game ||";
         }
     }
 
@@ -83,7 +84,6 @@ public class GameDataScript : MonoBehaviour {
             case "Leap_Game":
                 if (!LeapGame)
                 {
-                    LeapGame = true;
                     notification.SetActive(true);
                     notificationText.text = "You have unlocked the Leap Game in Games Menu";
                     StartCoroutine(Wait());
@@ -91,10 +91,9 @@ public class GameDataScript : MonoBehaviour {
                     CheckUnlockedGames();
                 }
                 break;
-            case "QR":
+            case "Charge_Game":
                 if (!ChargeGame)
                 {
-                    ChargeGame = true;
                     notification.SetActive(true);
                     notificationText.text = "You have unlocked the Charge Game in Games Menu";
                     StartCoroutine(Wait());
@@ -120,7 +119,6 @@ public class GameDataScript : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        dataText.text = data;
         if (SceneManager.GetActiveScene().name == "ArScene")
         {
             notification = GameObject.Find("Canvas").transform.GetChild(3).gameObject;
