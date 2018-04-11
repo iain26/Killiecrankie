@@ -13,18 +13,23 @@ public class SoldierLeaping : MonoBehaviour {
     public GameObject EndPanel;
     public Text Result;
 
-    Vector3 jumpForce = new Vector3(0, 450, 0);
+    Vector3 jumpForce = new Vector3(0, 350, 0);
     bool jumped = false;
 
     bool waited = true;
 
     bool crouch = false;
+    public Collider crouchCollider;
+    public Collider runCollider;
+
+    Animator anim;
 
     // Use this for initialization
     void Start () {
         rb = GetComponent<Rigidbody>();
         body = GetComponent<Collider>();
-	}
+        anim = transform.GetChild(0).GetComponent<Animator>();
+    }
 
     IEnumerator Wait()
     {
@@ -41,10 +46,11 @@ public class SoldierLeaping : MonoBehaviour {
             jumped = true;
             if (crouch)
             {
-                jumpForce *= 0.5f;
+                jumpForce = new Vector3(0, 225f, 0);
             }
+            anim.SetBool("Jump", true);
             rb.AddForce(jumpForce);
-            jumpForce = new Vector3(0, 450, 0);
+            jumpForce = new Vector3(0, 350, 0);
         }
     }
 
@@ -52,15 +58,20 @@ public class SoldierLeaping : MonoBehaviour {
     {
         if (!crouch)
         {
-            crouch = true;
-            transform.localScale = new Vector3(1, 0.5f, 1);
-            transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
+            //if (!jumped)
+            {
+                crouch = true;
+                anim.SetBool("Crouch", true);
+                crouchCollider.enabled = true;
+                runCollider.enabled = false;
+            }
         }
         else
         {
+            anim.SetBool("Crouch", false);
             crouch = false;
-            transform.localScale = new Vector3(1, 1, 1);
-            transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
+            crouchCollider.enabled = false;
+            runCollider.enabled = true;
         }
     }
 
@@ -71,6 +82,7 @@ public class SoldierLeaping : MonoBehaviour {
         if(collision.collider.tag == "GroundBlock")
         {
             jumped = false;
+            anim.SetBool("Jump", false);
         }
         if (collision.collider.tag == "EndBlock")
         {
@@ -82,6 +94,10 @@ public class SoldierLeaping : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.tag == "Edge")
+        {
+            rb.velocity = Vector3.zero;
+        }
         if (other.tag == "FallZone")
         {
             EndPanel.SetActive(true);
