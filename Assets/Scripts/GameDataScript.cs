@@ -44,6 +44,8 @@ public class GameDataScript : MonoBehaviour {
         CheckUnlocked();
     }
 
+    #region file_saving_Loading
+
     void SaveToFile(string gameCollected)
     {
         gamesCollected = gamesCollected + gameCollected;
@@ -63,6 +65,9 @@ public class GameDataScript : MonoBehaviour {
         return data;
     }
 
+#endregion
+
+
     void CheckUnlocked()
     {
         if (LoadFile().Contains("Leap_Game"))
@@ -79,6 +84,11 @@ public class GameDataScript : MonoBehaviour {
         {
             Royalist = true;
             gamesCollected = gamesCollected + "Royalist_Model ||";
+        }
+        if (LoadFile().Contains("Musket_Model"))
+        {
+            Musket = true;
+            gamesCollected = gamesCollected + "Musket_Model ||";
         }
     }
 
@@ -122,6 +132,16 @@ public class GameDataScript : MonoBehaviour {
                 {
                     notification.SetActive(true);
                     notificationText.text = "You have unlocked the Royalist in Gallery Menu";
+                    StartCoroutine(Wait());
+                    SaveToFile(trackName + " || ");
+                    CheckUnlocked();
+                }
+                break;
+            case "Musket_Model":
+                if (!Musket)
+                {
+                    notification.SetActive(true);
+                    notificationText.text = "You have unlocked the Musket in Gallery Menu";
                     StartCoroutine(Wait());
                     SaveToFile(trackName + " || ");
                     CheckUnlocked();

@@ -122,7 +122,7 @@ public class LoadScene : MonoBehaviour {
 
     public void LoadThinJacobite()
     {
-        GameObject.Find("GameData").GetComponent<GameDataScript>().character = "TJacobite";
+        GameObject.Find("GameData").GetComponent<GameDataScript>().character = "Musket";
         SceneManager.LoadScene("ViewerScene");
     }
 

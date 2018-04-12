@@ -16,6 +16,8 @@ public class SoldierLeaping : MonoBehaviour {
     Vector3 jumpForce = new Vector3(0, 350, 0);
     bool jumped = false;
 
+    float forwardForce = 5;
+
     bool waited = true;
 
     bool crouch = false;
@@ -96,7 +98,7 @@ public class SoldierLeaping : MonoBehaviour {
     {
         if (other.tag == "Edge")
         {
-            rb.velocity = Vector3.zero;
+            forwardForce = 0;
         }
         if (other.tag == "FallZone")
         {
@@ -120,7 +122,7 @@ public class SoldierLeaping : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, 5);
+        rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, forwardForce);
     }
 
     // Update is called once per frame

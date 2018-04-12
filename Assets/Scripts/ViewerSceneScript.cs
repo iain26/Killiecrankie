@@ -7,8 +7,8 @@ public class ViewerSceneScript : MonoBehaviour {
     GameDataScript gDS;
 
     public GameObject r;
-    public GameObject tJ;
-    public GameObject fJ;
+    public GameObject m;
+    public GameObject other;
 
     // Use this for initialization
     void Start ()
@@ -17,15 +17,15 @@ public class ViewerSceneScript : MonoBehaviour {
         switch (gDS.character)
         {
             case "Royalist":
-                tJ.SetActive(false);
-                fJ.SetActive(false);
+                m.SetActive(false);
+                other.SetActive(false);
                 break;
-            case "TJacobite":
+            case "Musket":
                 r.SetActive(false);
-                fJ.SetActive(false);
+                other.SetActive(false);
                 break;
             case "FJacobite":
-                tJ.SetActive(false);
+                m.SetActive(false);
                 r.SetActive(false);
                 break;
         }
