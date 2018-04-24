@@ -23,6 +23,8 @@ public class GameDataScript : MonoBehaviour {
     private GameObject notification;
     private Text notificationText;
 
+    private GameObject LeapButton;
+
     FileInfo fileOfGames;
     string fileName = "Collected_Games";
 
@@ -108,6 +110,7 @@ public class GameDataScript : MonoBehaviour {
         switch (trackName)
         {
             case "Leap_Game":
+                LeapButton.SetActive(true);
                 if (!LeapGame)
                 {
                     notification.SetActive(true);
@@ -169,6 +172,7 @@ public class GameDataScript : MonoBehaviour {
         {
             notification = GameObject.Find("Canvas").transform.GetChild(3).gameObject;
             notificationText = GameObject.Find("Canvas").transform.GetChild(3).GetChild(0).GetChild(0).GetComponent<Text>();
+            LeapButton = GameObject.Find("Canvas").transform.GetChild(4).gameObject;
         }
 
         if (SceneManager.GetActiveScene().name == "ChargeScene" || SceneManager.GetActiveScene().name == "LeapScene")

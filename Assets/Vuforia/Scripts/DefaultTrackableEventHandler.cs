@@ -82,6 +82,7 @@ namespace Vuforia
             {
                 component.enabled = true;
             }
+            GameObject.FindGameObjectWithTag("GameData").GetComponent<GameDataScript>().SetBool(mTrackableBehaviour.TrackableName);
 
             Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
         }
