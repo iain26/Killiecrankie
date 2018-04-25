@@ -31,6 +31,8 @@ public class GameDataScript : MonoBehaviour {
     public string data;
     string gamesCollected;
 
+    public Text trackNameText;
+
     // Use this for initialization
     void Start () {
         DontDestroyOnLoad(gameObject);
@@ -107,6 +109,7 @@ public class GameDataScript : MonoBehaviour {
 
     public void SetBool(string trackName)
     {
+        trackNameText.text = trackName;
         switch (trackName)
         {
             case "Leap_Game":
