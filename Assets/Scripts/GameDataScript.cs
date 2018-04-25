@@ -69,8 +69,12 @@ public class GameDataScript : MonoBehaviour {
         return data;
     }
 
-#endregion
+    #endregion
 
+    private void OnEnable()
+    {
+        TrackImage.OnFound += SetBool;
+    }
 
     void CheckUnlocked()
     {
@@ -152,6 +156,22 @@ public class GameDataScript : MonoBehaviour {
                     SaveToFile(trackName + " || ");
                     CheckUnlocked();
                 }
+                break;
+        }
+    }
+
+    public void TurnOffButtons(string trackName)
+    {
+        switch (trackName)
+        {
+            case "Leap_Game":
+                LeapButton.SetActive(false);
+                break;
+            case "Charge_Game":
+                break;
+            case "Royalist_Model":
+                break;
+            case "Musket_Model":
                 break;
         }
     }
