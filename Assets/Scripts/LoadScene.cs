@@ -120,7 +120,7 @@ public class LoadScene : MonoBehaviour {
         SceneManager.LoadScene("ViewerScene");
     }
 
-    public void LoadThinJacobite()
+    public void LoadMusket()
     {
         GameObject.Find("GameData").GetComponent<GameDataScript>().character = "Musket";
         SceneManager.LoadScene("ViewerScene");

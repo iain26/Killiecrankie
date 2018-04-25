@@ -28,7 +28,8 @@ namespace Vuforia
 
         private void OnTrackingFound()
         {
-            OnFound(mTrackableBehaviour.TrackableName);
+            //OnFound(mTrackableBehaviour.TrackableName);
+            GameObject.Find("GameData").GetComponent<GameDataScript>().TurnOffButtons(mTrackableBehaviour.TrackableName);
 
             Renderer[] rendererComponents = GetComponentsInChildren<Renderer>(true);
             Collider[] colliderComponents = GetComponentsInChildren<Collider>(true);
@@ -49,7 +50,7 @@ namespace Vuforia
 
         private void OnTrackingLost()
         {
-            OnLost(mTrackableBehaviour.TrackableName);
+            //OnLost(mTrackableBehaviour.TrackableName);
             //GameObject.Find("GameData").GetComponent<GameDataScript>().TurnOffButtons(mTrackableBehaviour.TrackableName);
 
             Renderer[] rendererComponents = GetComponentsInChildren<Renderer>(true);

@@ -24,6 +24,8 @@ public class GameDataScript : MonoBehaviour {
     private Text notificationText;
 
     private GameObject LeapButton;
+    private GameObject MusketButton;
+    private GameObject RoyalistButton;
 
     FileInfo fileOfGames;
     string fileName = "Collected_Games";
@@ -73,7 +75,7 @@ public class GameDataScript : MonoBehaviour {
 
     private void OnEnable()
     {
-        TrackImage.OnFound += SetBool;
+        //TrackImage.OnFound += SetBool;
     }
 
     void CheckUnlocked()
@@ -113,7 +115,6 @@ public class GameDataScript : MonoBehaviour {
 
     public void SetBool(string trackName)
     {
-        trackNameText.text = trackName;
         switch (trackName)
         {
             case "Leap_Game":
@@ -138,6 +139,7 @@ public class GameDataScript : MonoBehaviour {
                 }
                 break;
             case "Royalist_Model":
+                RoyalistButton.SetActive(true);
                 if (!Royalist)
                 {
                     notification.SetActive(true);
@@ -148,6 +150,7 @@ public class GameDataScript : MonoBehaviour {
                 }
                 break;
             case "Musket_Model":
+                MusketButton.SetActive(true);
                 if (!Musket)
                 {
                     notification.SetActive(true);
@@ -167,11 +170,11 @@ public class GameDataScript : MonoBehaviour {
             case "Leap_Game":
                 LeapButton.SetActive(false);
                 break;
-            case "Charge_Game":
-                break;
             case "Royalist_Model":
+                RoyalistButton.SetActive(false);
                 break;
             case "Musket_Model":
+                MusketButton.SetActive(false);
                 break;
         }
     }
@@ -196,6 +199,8 @@ public class GameDataScript : MonoBehaviour {
             notification = GameObject.Find("Canvas").transform.GetChild(3).gameObject;
             notificationText = GameObject.Find("Canvas").transform.GetChild(3).GetChild(0).GetChild(0).GetComponent<Text>();
             LeapButton = GameObject.Find("Canvas").transform.GetChild(4).gameObject;
+            MusketButton = GameObject.Find("Canvas").transform.GetChild(5).gameObject;
+            RoyalistButton = GameObject.Find("Canvas").transform.GetChild(6).gameObject;
         }
 
         if (SceneManager.GetActiveScene().name == "ChargeScene" || SceneManager.GetActiveScene().name == "LeapScene")

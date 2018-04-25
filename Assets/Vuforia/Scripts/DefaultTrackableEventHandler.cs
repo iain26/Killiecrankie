@@ -17,6 +17,7 @@ namespace Vuforia
         #region PRIVATE_MEMBER_VARIABLES
  
         private TrackableBehaviour mTrackableBehaviour;
+        private GameDataScript gds;
     
         #endregion // PRIVATE_MEMBER_VARIABLES
 
@@ -24,7 +25,19 @@ namespace Vuforia
 
         #region UNTIY_MONOBEHAVIOUR_METHODS
     
-     
+        void Start()
+        {
+            if (GameObject.Find("GameData").GetComponent<GameDataScript>() != null)
+            {
+                gds = GameObject.Find("GameData").GetComponent<GameDataScript>();
+            }
+            mTrackableBehaviour = GetComponent<TrackableBehaviour>();
+            if (mTrackableBehaviour)
+            {
+                mTrackableBehaviour.RegisterTrackableEventHandler(this);
+            }
+        }
+
         #endregion // UNTIY_MONOBEHAVIOUR_METHODS
 
 
@@ -74,6 +87,8 @@ namespace Vuforia
             {
                 component.enabled = true;
             }
+            
+            gds.SetBool(mTrackableBehaviour.TrackableName);
 
             Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
         }
@@ -95,6 +110,8 @@ namespace Vuforia
             {
                 component.enabled = false;
             }
+
+            gds.TurnOffButtons(mTrackableBehaviour.TrackableName);
 
             Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " lost");
         }

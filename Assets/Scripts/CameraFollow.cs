@@ -39,10 +39,10 @@ public class CameraFollow : MonoBehaviour {
 
             if (!obstaclePlaced && blockCount < 170)
             {
-                if (Random.Range(0, 5) < 1)
+                
                 {
                     obstaclePlaced = true;
-                    StartCoroutine(IncrementObstacleCount(2f));
+                    StartCoroutine(IncrementObstacleCount(4f));
                     GameObject obstacle = GameObject.Instantiate(obstaclePrefab[Random.Range(0, obstaclePrefab.Length)]);
                     obstacle.transform.SetParent(groundClone.transform);
                     obstacle.transform.localPosition = new Vector3(0, 0.837f, 0);
@@ -97,7 +97,7 @@ public class CameraFollow : MonoBehaviour {
         else
         {
             if (!ranOnce)
-                StartCoroutine(IncrementProjectileCount(Random.Range(4, 7)));
+                StartCoroutine(IncrementProjectileCount(/*Random.Range(4, 7)*/ 3f));
         }
     }
 }

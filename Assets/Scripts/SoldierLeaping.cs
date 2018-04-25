@@ -26,6 +26,8 @@ public class SoldierLeaping : MonoBehaviour {
 
     Animator anim;
 
+    bool dead = false;
+
     // Use this for initialization
     void Start () {
         rb = GetComponent<Rigidbody>();
@@ -77,7 +79,15 @@ public class SoldierLeaping : MonoBehaviour {
         }
     }
 
-
+    IEnumerator Fall()
+    {
+        forwardForce = 0;
+        //rb.useGravity = false;
+        anim.SetBool("Fall", true);
+        //runCollider.enabled = false;
+        yield return new WaitForSeconds(2.533f);
+        Time.timeScale = 0;
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -96,27 +106,33 @@ public class SoldierLeaping : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Edge")
+        if (!dead)
         {
-            forwardForce = 0;
-        }
-        if (other.tag == "FallZone")
-        {
-            EndPanel.SetActive(true);
-            Result.text = "You fell to your Death";
-            Time.timeScale = 0;
-        }
-        if (other.tag == "Obstacle")
-        {
-            EndPanel.SetActive(true);
-            Result.text = "You tripped and were savagely beaten";
-            Time.timeScale = 0;
-        }
-        if (other.tag == "Projectile")
-        {
-            EndPanel.SetActive(true);
-            Result.text = "You were shot";
-            Time.timeScale = 0;
+            if (other.tag == "Edge")
+            {
+                forwardForce = 0;
+            }
+            if (other.tag == "FallZone")
+            {
+                EndPanel.SetActive(true);
+                Result.text = "You fell to your Death";
+                Time.timeScale = 0;
+                dead = true;
+            }
+            if (other.tag == "Obstacle")
+            {
+                EndPanel.SetActive(true);
+                Result.text = "You tripped and were savagely beaten";
+                StartCoroutine(Fall());
+                dead = true;
+            }
+            if (other.tag == "Projectile")
+            {
+                EndPanel.SetActive(true);
+                Result.text = "You were shot";
+                StartCoroutine(Fall());
+                dead = true;
+            }
         }
     }
 
