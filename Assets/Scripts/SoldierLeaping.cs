@@ -74,17 +74,15 @@ public class SoldierLeaping : MonoBehaviour {
         {
             anim.SetBool("Crouch", false);
             crouch = false;
-            crouchCollider.enabled = false;
             runCollider.enabled = true;
+            crouchCollider.enabled = false;
         }
     }
 
     IEnumerator Fall()
     {
         forwardForce = 0;
-        //rb.useGravity = false;
         anim.SetBool("Fall", true);
-        //runCollider.enabled = false;
         yield return new WaitForSeconds(2.533f);
         Time.timeScale = 0;
     }

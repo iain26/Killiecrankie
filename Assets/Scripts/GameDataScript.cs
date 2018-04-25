@@ -205,7 +205,7 @@ public class GameDataScript : MonoBehaviour {
 
         if (SceneManager.GetActiveScene().name == "ChargeScene" || SceneManager.GetActiveScene().name == "LeapScene")
         {
-            Screen.orientation = ScreenOrientation.LandscapeRight;
+            Screen.orientation = ScreenOrientation.Landscape;
         }
         else
         {
