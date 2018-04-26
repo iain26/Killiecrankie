@@ -26,12 +26,13 @@ public class SoldierLeaping : MonoBehaviour {
 
     Animator anim;
 
-	AudioSource audioSource;
-	public AudioClip bulletHit;
-	public AudioClip death;
-	public AudioClip obstacleHit;
-	public AudioClip jump;
-	public AudioClip success;
+    AudioSource audioSource;
+    public AudioClip bulletHit;
+    public AudioClip death;
+    public AudioClip obstacleHit;
+    public AudioClip jump;
+    public AudioClip success;
+
 
     bool dead = false;
 
@@ -61,7 +62,7 @@ public class SoldierLeaping : MonoBehaviour {
             }
             anim.SetBool("Jump", true);
             rb.AddForce(jumpForce);
-			GetComponent<AudioSource> ().PlayOneShot (jump, 1);
+            GetComponent<AudioSource>().PlayOneShot(jump, 1);
             jumpForce = new Vector3(0, 350, 0);
         }
     }
@@ -74,16 +75,16 @@ public class SoldierLeaping : MonoBehaviour {
             {
                 crouch = true;
                 anim.SetBool("Crouch", true);
-                crouchCollider.enabled = true;
-                runCollider.enabled = false;
+                //crouchCollider.enabled = true;
+                //runCollider.enabled = false;
             }
         }
         else
         {
             anim.SetBool("Crouch", false);
             crouch = false;
-            runCollider.enabled = true;
-            crouchCollider.enabled = false;
+            //runCollider.enabled = true;
+            //crouchCollider.enabled = false;
         }
     }
 
@@ -106,7 +107,7 @@ public class SoldierLeaping : MonoBehaviour {
         {
             EndPanel.SetActive(true);
             Result.text = "You Made the Leap";
-			GetComponent<AudioSource> ().PlayOneShot (success, 1);
+            GetComponent<AudioSource>().PlayOneShot(success, 1);
             Time.timeScale = 0;
         }
     }
@@ -130,8 +131,8 @@ public class SoldierLeaping : MonoBehaviour {
             {
                 EndPanel.SetActive(true);
                 Result.text = "You tripped and were savagely beaten";
-				GetComponent<AudioSource> ().PlayOneShot (obstacleHit, 1);
-				GetComponent<AudioSource> ().PlayOneShot (death, 1);
+                GetComponent<AudioSource>().PlayOneShot(obstacleHit, 1);
+                GetComponent<AudioSource>().PlayOneShot(death, 1);
                 StartCoroutine(Fall());
                 dead = true;
             }
@@ -139,8 +140,8 @@ public class SoldierLeaping : MonoBehaviour {
             {
                 EndPanel.SetActive(true);
                 Result.text = "You were shot";
-				GetComponent<AudioSource> ().PlayOneShot (bulletHit, 1);
-				GetComponent<AudioSource> ().PlayOneShot (death, 1);
+                GetComponent<AudioSource>().PlayOneShot(obstacleHit, 1);
+                GetComponent<AudioSource>().PlayOneShot(death, 1);
                 StartCoroutine(Fall());
                 dead = true;
             }
