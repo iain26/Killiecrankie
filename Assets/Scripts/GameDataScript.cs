@@ -54,21 +54,29 @@ public class GameDataScript : MonoBehaviour {
 
     void SaveToFile(string gameCollected)
     {
-        gamesCollected = gamesCollected + gameCollected;
-        StreamWriter write;
-        fileOfGames.Delete();
-        write = fileOfGames.CreateText();
-        write.WriteLine(gamesCollected);
-        write.Close();
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            gamesCollected = gamesCollected + gameCollected;
+            StreamWriter write;
+            fileOfGames.Delete();
+            write = fileOfGames.CreateText();
+            write.WriteLine(gamesCollected);
+            write.Close();
+        }
     }
 
     string LoadFile()
     {
-        StreamReader read = File.OpenText(Application.persistentDataPath + "\\" + fileName + ".txt");
-        string loadedData = read.ReadToEnd();
-        read.Close();
-        data = loadedData;
-        return data;
+
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            StreamReader read = File.OpenText(Application.persistentDataPath + "\\" + fileName + ".txt");
+            string loadedData = read.ReadToEnd();
+            read.Close();
+            data = loadedData;
+            return data;
+        }
+        else { return ""; }
     }
 
     #endregion
