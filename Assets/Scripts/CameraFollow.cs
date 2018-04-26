@@ -20,9 +20,14 @@ public class CameraFollow : MonoBehaviour {
     public Transform projectilePos;
     public GameObject projectilePrefab;
 
+	AudioSource audioSource;
+	public AudioClip bulletWarning;
+	public AudioClip bulletShot;
+
 	// Use this for initialization
 	void Start () {
 		
+		audioSource = gameObject.GetComponent<AudioSource>();
 	}
 
     public void MoveBlock()
@@ -70,7 +75,9 @@ public class CameraFollow : MonoBehaviour {
         ranOnce = true;
         yield return new WaitForSeconds(time - 1);
         Warning.SetActive(true);
+		GetComponent<AudioSource> ().PlayOneShot (bulletWarning, 1);
         yield return new WaitForSeconds(1);
+		GetComponent<AudioSource> ().PlayOneShot (bulletShot, 1);
         fireBullet = true;
         ranOnce = false;
         yield return 0;
