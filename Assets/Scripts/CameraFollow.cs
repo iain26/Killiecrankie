@@ -13,8 +13,10 @@ public class CameraFollow : MonoBehaviour {
     int blockCount = 14;
     int temp = 0;
 
-    bool obstaclePlaced = false;
+    int obstaclesPlaced = 0;
     public GameObject[] obstaclePrefab;
+
+    int bulletFired = 0;
 
     bool fireBullet = false;
     bool ranOnce = false;
@@ -49,10 +51,11 @@ public class CameraFollow : MonoBehaviour {
             if(temp == 10)
             {
                 temp = 0;
-                if(Random.Range(0, 2) < 1)
+                if((Random.Range(0, 2) < 1) && obstaclesPlaced < 3)
                 { 
-                    obstaclePlaced = true;
-                    StartCoroutine(IncrementObstacleCount(5.5f));
+                    obstaclesPlaced++;
+                    bulletFired = 0;
+                    //StartCoroutine(IncrementObstacleCount(5.5f));
                     GameObject obstacle = GameObject.Instantiate(obstaclePrefab[Random.Range(0, obstaclePrefab.Length)]);
                     obstacle.transform.SetParent(groundClone.transform);
                     obstacle.transform.localPosition = new Vector3(0, 0.837f, 0);
@@ -64,20 +67,22 @@ public class CameraFollow : MonoBehaviour {
                         obstacle2.transform.localPosition = new Vector3(0, 0.837f, 1);
                     }
                 }
-                else
+                else if(bulletFired < 2)
                 {
                     StartCoroutine(IncrementProjectileCount(1));
+                    obstaclesPlaced = 0;
+                    bulletFired++;
                 }
             }
         }
     }
 
-    IEnumerator IncrementObstacleCount(float time)
-    {
-        yield return new WaitForSeconds(time);
-        obstaclePlaced = false;
-        yield return 0;
-    }
+    //IEnumerator IncrementObstacleCount(float time)
+    //{
+    //    yield return new WaitForSeconds(time);
+    //    obstaclePlaced = false;
+    //    yield return 0;
+    //}
 
     IEnumerator IncrementProjectileCount(float time)
     {
